@@ -12,6 +12,8 @@
 #   hubot <name>-- - subtract some karma
 #   hubot empty <name> - reset karma
 #   hubot tests - check on test suite status
+#   hubot cluster - check which cluster cnubot is on
+#   hubot apply-patch <patch> - attempt to apply patch to cnubot, which, lol
 
 class CnuKarma
 
@@ -67,3 +69,17 @@ module.exports = (robot) ->
       "Cannot connect to cnubot.qa: certificate expired"
     ]
     msg.send msg.random responses
+
+  robot.respond /cluster$/, (msg) ->
+    responses = [
+      "GB",
+      "US",
+      "JV",
+      "CA",
+      "AUAAHAHAHAHAHAHAHAA"
+    ]
+    msg.send msg.random responses
+
+  robot.response /apply-patch (.+)/, (msg) ->
+    msg.send "Could not load db-global."
+
