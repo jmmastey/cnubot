@@ -13,6 +13,8 @@
 #   hubot empty <name> - reset karma
 #   hubot tests - check on test suite status
 #   hubot restart - restart hubot
+#   hubot cluster - check which cluster hubot is on
+#   hubot apply-patch <patch> - apply patch to hubot
 
 class CnuKarma
 
@@ -81,3 +83,16 @@ module.exports = (robot) ->
 
   robot.respond /sudo restart/, (msg) ->
     msg.send "Stop escalating privileges. Learn some manners."
+
+  robot.respond /cluster$/, (msg) ->
+    responses = [
+      "GB",
+      "US",
+      "JV",
+      "CA",
+      "AUAAHAHAHAHAHAHAHAA"
+    ]
+    msg.send msg.random responses
+
+  robot.respond /apply-patch (.*)$/, (msg) ->
+    msg.send "Could not load db-global."
