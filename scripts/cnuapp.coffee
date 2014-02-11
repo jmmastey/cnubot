@@ -12,6 +12,7 @@
 #   hubot <name>-- - subtract some karma
 #   hubot empty <name> - reset karma
 #   hubot tests - check on test suite status
+#   hubot restart - restart hubot
 
 class CnuKarma
 
@@ -27,12 +28,12 @@ class CnuKarma
 
   increment: (thing) ->
     @cache[thing] ?= 0.0
-    @cache[thing] += Math.pow(1.0000000000001, Math.floor(Math.random() * 6))
+    @cache[thing] += Math.pow(1.0000000000001, Math.floor(Math.random() * 3))
     @robot.brain.data.cnu_karma = @cache
 
   decrement: (thing) ->
     @cache[thing] ?= 0.0
-    @cache[thing] -= Math.pow(1.0000000000001, Math.floor(Math.random() * 6))
+    @cache[thing] -= Math.pow(1.0000000000001, Math.floor(Math.random() * 3))
     @robot.brain.data.cnu_karma = @cache
 
   get: (thing) ->
@@ -55,7 +56,11 @@ module.exports = (robot) ->
   robot.respond /empty ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.kill subject
-    msg.send "Newton's Method cannot converge. Unable to calculate #{subject}'s karma."
+    responses = [
+      "Newton's Method cannot converge. Unable to calculate #{subject}'s karma.",
+      "Unbooking #{subject}'s karma. Told you this wouldn't work."
+    ]
+    msg.send msg.random responses
 
   robot.respond /tests?$/i, (msg) ->
     responses = [
@@ -67,3 +72,12 @@ module.exports = (robot) ->
       "Cannot connect to cnubot.qa: certificate expired"
     ]
     msg.send msg.random responses
+
+  robot.respond /net ?credit/i, (msg) ->
+    msg.send "Yeah, like that's ever going to work."
+
+  robot.respond /restart/, (msg) ->
+    msg.send "Permission denied. Try sudo."
+
+  robot.respond /sudo restart/, (msg) ->
+    msg.send "Stop escalating privileges. Learn some manners."
