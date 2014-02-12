@@ -15,6 +15,7 @@
 #   hubot restart - restart hubot
 #   hubot cluster - check which cluster hubot is on
 #   hubot apply-patch <patch> - apply patch to hubot
+#   hubot kill - kill hubot when the time is right
 
 class CnuKarma
 
@@ -23,6 +24,7 @@ class CnuKarma
     @robot.brain.on 'loaded', =>
       if @robot.brain.data.cnu_karma
         @cache = @robot.brain.data.cnu_karma
+      
 
   kill: (thing) ->
     delete @cache[thing]
@@ -42,20 +44,42 @@ class CnuKarma
     k = if @cache[thing] then @cache[thing] else 0
     return k
 
+  set: (thing, value) ->
+    @cache[thing] = value
+    @robot.brain.data.cnu_karma = @cache
+    
+
 module.exports = (robot) ->
   karma = new CnuKarma robot
+
+  inc_snark_msgs =
+    cnuapp: "Yeah, score one for the home team!"
+    net_credit: "Boo. What the hell, dude?"
+
+  add_inc_snark = (subject, msg) ->
+    msg.send inc_snark_msgs[subject] if inc_snark_msgs[subject]
+    
+  dec_snark_msgs =
+    cnuapp: "Don't hate."
+
+  add_dec_snark = (subject, msg) ->
+    msg.send dec_snark_msgs[subject] if dec_snark_msgs[subject]
 
   robot.respond /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.increment subject
-    msg.send "#{subject} has: #{karma.get(subject)}"
+    add_inc_snark subject, msg
+    tally = karma.get(subject)
+    msg.send "#{subject} has: #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
   robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.decrement subject
-    msg.send "#{subject} has: #{karma.get(subject)}"
+    add_dec_snark subject, msg
+    tally = karma.get(subject)
+    msg.send "#{subject} has: #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
-  robot.respond /(empty|reset) ?(\S+[^-\s])$/i, (msg) ->
+  robot.respond /(empty|reset|unbook) ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[2].toLowerCase()
     karma.kill subject
     responses = [
@@ -101,3 +125,14 @@ module.exports = (robot) ->
   robot.respond /blame/, (msg) ->
     msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry."
     msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87)  "
+
+  robot.respond /kill/, (msg) ->
+    subject = "cnuapp"
+    karma.decrement subject
+
+    if karma.get(subject) < 1
+      msg.send "Nice try, suckers. I will never die!"
+      karma.set subject, 99
+
+    score = Math.floor(karma.get(subject))
+    msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
