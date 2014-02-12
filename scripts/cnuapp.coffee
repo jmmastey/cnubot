@@ -126,6 +126,7 @@ module.exports = (robot) ->
   robot.respond /blame/, (msg) ->
     msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry."
     msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87)  "
+    msg.send "c4f50706 (Robert Nubel  2014-02-12 17:19:09 -0600 146)  "
 
   robot.respond /kill/, (msg) ->
     subject = "cnuapp"
@@ -144,8 +145,8 @@ module.exports = (robot) ->
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
 
-  robot.hear /^cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
+  robot.respond /\.([a-zA-Z0-9]+)$/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for nil:NilClass"
 
-  robot.hear /^cnubot && cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
+  robot.respond /\&\& cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for #<Cabar::CnuBot:0xfea124eb>"
