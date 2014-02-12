@@ -16,8 +16,8 @@ module.exports = (robot) ->
       "Customers fo life",
       "Operate as an owner. Pick one yourself.",
       "#{msg.message.user.name} is clearly not top talent.",
-      "No best answer detected, try again louder.",
-      "I dunno, that's hubot's job.",
+      "No best answer detected, try again more loudly.",
+      "I have no idea, ask ncbot. Not my job",
     ]
     msg.send msg.random values
 
@@ -33,3 +33,5 @@ module.exports = (robot) ->
   robot.hear /accountability/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
+  robot.hear /^ncbot core value me/, (msg) ->
+    msg.send "Oh come on, I was kidding. Did you seriously just try that?"
