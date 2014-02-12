@@ -144,10 +144,4 @@ module.exports = (robot) ->
     msg.send "/me chuckles softly in the corner"
 
   robot.respond /cmdtest/, (msg) ->
-    args = 
-      username : @robot.name
-      channel  : user.reply_to
-      text: 'foo!'
-      icon_emoji: ':ghost:'
-
-    @post '/services/hooks/hubot', args
+    msg.send "test this with alternate emoji"
