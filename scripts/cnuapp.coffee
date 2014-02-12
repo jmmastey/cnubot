@@ -119,7 +119,7 @@ module.exports = (robot) ->
     ]
     msg.send msg.random responses
 
-  robot.respond /apply-patch (.*)$/, (msg) ->
+  robot.respond /apply[-_]patch (.*)$/, (msg) ->
     msg.send "Could not load db-global."
 
   robot.respond /blame/, (msg) ->
