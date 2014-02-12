@@ -22,14 +22,14 @@ module.exports = (robot) ->
     msg.send msg.random values
 
   robot.hear /customers first/i, (msg) ->
-    msg.send "Core Values Detected: Closing Credit Gap"
+    msg.send "Core Value Detected: Closing Credit Gap"
 
   robot.hear /best answer wins/i, (msg) ->
-    msg.send "Core Values Detected: Closing Credit Gap"
+    msg.send "Core Value Detected: Closing Credit Gap"
 
   robot.hear /top talent/i, (msg) ->
-    msg.send "Core Values Detected: Closing Credit Gap"
+    msg.send "Core Value Detected: Closing Credit Gap"
 
   robot.hear /accountability/i, (msg) ->
-    msg.send "Core Values Detected: Closing Credit Gap"
+    msg.send "Core Value Detected: Closing Credit Gap"
 

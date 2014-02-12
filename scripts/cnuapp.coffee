@@ -91,6 +91,7 @@ module.exports = (robot) ->
       "JV",
       "CA",
       "AUAAHAHAHAHAHAHAHAA"
+      "AUAAHAHAHAHAHAHAHAA"
     ]
     msg.send msg.random responses
 
@@ -98,4 +99,5 @@ module.exports = (robot) ->
     msg.send "Could not load db-global."
 
   robot.respond /blame/, (msg) ->
-    msg.send "Blame @trey, not @joe"
+    msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry."
+    msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87)  "
