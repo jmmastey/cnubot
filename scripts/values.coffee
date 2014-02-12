@@ -1,5 +1,5 @@
 # Description:
-#   Live the values, bruh.
+#   Live the values, bruh. Listens for common phrases and adds snark.
 #
 # Dependencies:
 #   None
@@ -35,3 +35,6 @@ module.exports = (robot) ->
 
   robot.hear /^ncbot core value me/, (msg) ->
     msg.send "Oh come on, I was kidding. Did you seriously just try that?"
+
+  robot.hear /kill(s|ed|ing)?( off)? cnuapp/, (msg) ->
+    msg.send "Don't hate."
