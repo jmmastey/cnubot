@@ -142,6 +142,3 @@ module.exports = (robot) ->
 
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
-
-  robot.respond /cmdtest/, (msg) ->
-    msg.send "test this with alternate emoji"
