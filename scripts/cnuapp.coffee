@@ -136,3 +136,9 @@ module.exports = (robot) ->
 
     score = Math.floor(karma.get(subject))
     msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
+
+  robot.hear /hubot image me tiny pig/, (msg) ->
+    msg.send "This part's my favorite!"
+
+  robot.hear /metrix run/, (msg) ->
+    msg.send "/me chuckles softly in the corner"
