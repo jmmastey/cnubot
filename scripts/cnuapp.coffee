@@ -45,12 +45,12 @@ class CnuKarma
 module.exports = (robot) ->
   karma = new CnuKarma robot
 
-  robot.hear /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
+  robot.respond /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.increment subject
     msg.send "#{subject} has: #{karma.get(subject)}"
 
-  robot.hear /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
+  robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.decrement subject
     msg.send "#{subject} has: #{karma.get(subject)}"
