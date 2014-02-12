@@ -145,8 +145,8 @@ module.exports = (robot) ->
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
 
-  robot.respond /\.([a-zA-Z0-9]+)$/, (msg) ->
+  robot.hear /^cnubot\.([a-zA-Z0-9]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for nil:NilClass"
 
-  robot.respond /\&\& cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
+  robot.hear /^cnubot && cnubot\.([a-zA-Z0-9]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for #<Cabar::CnuBot:0xfea124eb>"
