@@ -21,16 +21,16 @@ module.exports = (robot) ->
     ]
     msg.send msg.random values
 
-  robot.hear /customers first/i, (msg) ->
+  robot.hear /customer'?s? first/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
-  robot.hear /best answer wins/i, (msg) ->
+  robot.hear /best answers? wins?/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
-  robot.hear /top talent/i, (msg) ->
+  robot.hear /top (teamwork|talent)/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
-  robot.hear /accountability/i, (msg) ->
+  robot.hear /(accountability|accountable)/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
   robot.hear /^ncbot core value me/, (msg) ->
