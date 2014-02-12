@@ -96,3 +96,6 @@ module.exports = (robot) ->
 
   robot.respond /apply-patch (.*)$/, (msg) ->
     msg.send "Could not load db-global."
+
+  robot.respond /blame/, (msg) ->
+    msg.send "Blame @trey, not @joe"
