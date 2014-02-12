@@ -142,3 +142,10 @@ module.exports = (robot) ->
 
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
+
+  robot.respond /test/, (msg) ->
+    args = 
+      text: 'foo!'
+      icon_emoji: ':ghost:'
+
+    @post '/services/hooks/incoming-webhook', args
