@@ -145,6 +145,8 @@ module.exports = (robot) ->
 
   robot.respond /cmdtest/, (msg) ->
     args = 
+      username : @robot.name
+      channel  : user.reply_to
       text: 'foo!'
       icon_emoji: ':ghost:'
 
