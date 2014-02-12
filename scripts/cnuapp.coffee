@@ -55,8 +55,8 @@ module.exports = (robot) ->
     karma.decrement subject
     msg.send "#{subject} has: #{karma.get(subject)}"
 
-  robot.respond /empty ?(\S+[^-\s])$/i, (msg) ->
-    subject = msg.match[1].toLowerCase()
+  robot.respond /(empty|reset) ?(\S+[^-\s])$/i, (msg) ->
+    subject = msg.match[2].toLowerCase()
     karma.kill subject
     responses = [
       "Newton's Method cannot converge. Unable to calculate #{subject}'s karma.",
