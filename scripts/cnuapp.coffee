@@ -24,7 +24,7 @@ class CnuKarma
     @robot.brain.on 'loaded', =>
       if @robot.brain.data.cnu_karma
         @cache = @robot.brain.data.cnu_karma
-      
+
 
   kill: (thing) ->
     delete @cache[thing]
@@ -47,7 +47,7 @@ class CnuKarma
   set: (thing, value) ->
     @cache[thing] = value
     @robot.brain.data.cnu_karma = @cache
-    
+
 
 module.exports = (robot) ->
   karma = new CnuKarma robot
@@ -143,3 +143,9 @@ module.exports = (robot) ->
 
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
+
+  robot.hear /^cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
+    msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for nil:NilClass"
+
+  robot.hear /^cnubot && cnubot\.([a-zA-Z0-9]+)$/, (msg) ->
+    msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for #<Cabar::CnuBot:0xfea124eb>"
