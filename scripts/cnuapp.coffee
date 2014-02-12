@@ -96,6 +96,7 @@ module.exports = (robot) ->
       "All green."
       "Current time: 12:30:00 14 June 2124"
       "Cannot connect to cnubot.qa: certificate expired"
+      "I'll let you know tomorrow."
     ]
     msg.send msg.random responses
 
