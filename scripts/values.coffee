@@ -38,3 +38,6 @@ module.exports = (robot) ->
 
   robot.hear /kill(s|ed|ing)?( off)? cnuapp/, (msg) ->
     msg.send "Don't hate."
+
+  robot.hear /order(ing|s|ed)? food/, (msg) ->
+    msg.send "Remember to put in a JIRA ticket. Twenty-four hours advance notice is required."

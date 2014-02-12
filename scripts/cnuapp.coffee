@@ -53,7 +53,7 @@ module.exports = (robot) ->
   karma = new CnuKarma robot
 
   inc_snark_msgs =
-    cnuapp: "Yeah, score one for the home team!"
+    cnuapp: "Yeeahh, score one for the home team!"
     net_credit: "Boo. What the hell, dude?"
 
   add_inc_snark = (subject, msg) ->
@@ -70,14 +70,14 @@ module.exports = (robot) ->
     karma.increment subject
     add_inc_snark subject, msg
     tally = karma.get(subject)
-    msg.send "#{subject} has: #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
   robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.decrement subject
     add_dec_snark subject, msg
     tally = karma.get(subject)
-    msg.send "#{subject} has: #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
   robot.respond /(empty|reset|unbook) ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[2].toLowerCase()
