@@ -142,3 +142,13 @@ module.exports = (robot) ->
 
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
+
+  robot.hear /msgtest/, (msg) ->
+    args = 
+      username    : @robot.name
+      channel     : msg.user.reply_to
+      text        : 'try again, inside an action'
+      icon_emoji  : ':triumph:'
+
+    @post '/services/incoming-webhook', args
+    // curl -X POST --data 'payload={"channel": "#bot_testing", "username": "cnubot", "text": "cnubot is angry!", "icon_emoji": ":triumph:"}' https://enova.slack.com/services/coming-webhook?token=9nNi7YsYUyGEOjnzEwvj88Ww
