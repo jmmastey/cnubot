@@ -148,4 +148,4 @@ module.exports = (robot) ->
       text: 'foo!'
       icon_emoji: ':ghost:'
 
-    @post '/services/hooks/incoming-webhook', args
+    @post '/services/hooks/hubot', args
