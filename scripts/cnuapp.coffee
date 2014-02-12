@@ -142,32 +142,3 @@ module.exports = (robot) ->
 
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
-
-  robot.hear /msgtest/, (msg) ->
-    host = "#{@options.team}.slack.com"
-    path = "/services/incoming-webhook?token=#{process.env.HUBOT_INCOMING_TOKEN}"
-    body = 
-      username    : @robot.name
-      channel     : msg.user.reply_to
-      text        : "try again, inside an action"
-      icon_emoji  : ":triumph:"
-
-    headers =
-      Host: host
-
-    reqOptions =
-      agent    : false
-      hostname : host
-      port     : 443
-      path     : path
-      method   : 'POST'
-      headers  : headers
-
-    body = new Buffer body
-    reqOptions.headers["Content-Type"] = "application/x-www-form-urlencoded"
-    reqOptions.headers["Content-Length"] = body.length
-
-    request = https.request reqOptions
-    request.end body, "binary"
-
-
