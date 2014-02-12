@@ -24,7 +24,7 @@ module.exports = (robot) ->
   robot.hear /customer'?s? first/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
-  robot.hear /best answers? wins?/i, (msg) ->
+  robot.hear /best answers?( wins?)?/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
   robot.hear /top (teamwork|talent)/i, (msg) ->
