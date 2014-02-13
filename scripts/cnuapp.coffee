@@ -141,6 +141,9 @@ module.exports = (robot) ->
   robot.hear /hubot image me tiny pig/, (msg) ->
     msg.send "This part's my favorite!"
 
+  robot.respond /soa me a tiny pig/i, (msg) ->
+    msg.send "hubot image me tiny pig"
+
   robot.hear /metrix run/, (msg) ->
     msg.send "/me chuckles softly in the corner"
 
