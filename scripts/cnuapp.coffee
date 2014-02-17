@@ -150,3 +150,7 @@ module.exports = (robot) ->
 
   robot.hear /^cnubot && cnubot\.([a-zA-Z0-9]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for #<Cabar::CnuBot:0xfea124eb>"
+
+  robot.respond /the laws/, (msg) ->
+    msg.send "NoMethodError: undefined method `gov_law_state_cd' for nil:NilClass"
+
