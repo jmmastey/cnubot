@@ -162,7 +162,7 @@ module.exports = (robot) ->
     msg.send "This part's my favorite!"
 
   robot.hear /metrix run/, (msg) ->
-    msg.emote "chuckles softly in the corner"
+    msg.emote "/me chuckles softly in the corner"
 
   robot.hear /^cnubot\.([a-zA-Z0-9]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for nil:NilClass"
