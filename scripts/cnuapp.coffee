@@ -88,6 +88,14 @@ module.exports = (robot) ->
     tally = karma.get(subject)
     msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
+  robot.hear /\S+ (\S+[^+:\s])\-\-(\s|$)/, (msg) ->
+    subject = msg.match[1].toLowerCase()
+    karma.decrement subject
+    add_dec_snark subject, msg
+    tally = karma.get(subject)
+    msg.send "try harder."
+    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+
   robot.respond /(empty|reset|unbook) ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[2].toLowerCase()
     karma.kill subject
