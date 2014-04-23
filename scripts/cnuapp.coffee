@@ -16,6 +16,7 @@
 #   hubot cluster - check which cluster hubot is on
 #   hubot apply-patch <patch> - apply patch to hubot
 #   hubot kill - kill hubot when the time is right
+#   hubot the laws - recite the laws
 
 class CnuKarma
 
@@ -65,6 +66,14 @@ module.exports = (robot) ->
   add_dec_snark = (subject, msg) ->
     msg.send dec_snark_msgs[subject] if dec_snark_msgs[subject]
 
+  robot.hear /\S+ (\S+[^+:\s])\+\+(\s|$)/, (msg) ->
+    subject = msg.match[1].toLowerCase()
+    karma.increment subject
+    add_inc_snark subject, msg
+    tally = karma.get(subject)
+    msg.send "...close enough..."
+    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+    
   robot.respond /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
     subject = msg.match[1].toLowerCase()
     karma.increment subject
