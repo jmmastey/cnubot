@@ -2,7 +2,8 @@
 #   Utility commands surrounding Hubot uptime.
 #
 # Commands:
-#
+#   hubot ping - regular ping
+#   hubot pyong - improved ping
 
 module.exports = (robot) ->
   robot.respond /PING$/i, (msg) ->
