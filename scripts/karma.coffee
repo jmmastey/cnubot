@@ -10,6 +10,7 @@
 # Commands:
 #   hubot <name>++ - add some karma
 #   hubot <name>-- - subtract some karma
+#   hubot score <name> - check karma
 #   hubot unbook <name> - reset karma
 #   hubot kill - kill hubot when the time is right
 
@@ -98,4 +99,16 @@ module.exports = (robot) ->
 
     score = Math.floor(karma.get("cnuapp"))
     msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
+
+  robot.respond /score (\S+)/, (msg) ->
+    subject = msg.match[1].toLowerCase()
+    tally = karma.get(subject)
+
+    if tally < 0
+    	msg.send ":hard_decline, fraud_flg=1"
+    else if tally < 3
+    	msg.send ":soft_decline"
+    else
+    	msg.send ":approved"
+
 
