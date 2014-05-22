@@ -31,14 +31,10 @@ class CnuKarma
     delete @cache[thing]
     @robot.brain.data.cnu_karma = @cache
 
-  increment: (thing) ->
+  score: (thing, mult) ->
+    mult = mult || 1
     @cache[thing] ?= 0.0
-    @cache[thing] += Math.pow(1.0000000000001, Math.floor(Math.random() * 3))
-    @robot.brain.data.cnu_karma = @cache
-
-  decrement: (thing) ->
-    @cache[thing] ?= 0.0
-    @cache[thing] -= Math.pow(1.0000000000001, Math.floor(Math.random() * 3))
+    @cache[thing] += (mult * Math.pow(1.0000000000001, Math.floor(Math.random() * 3)))
     @robot.brain.data.cnu_karma = @cache
 
   get: (thing) ->
@@ -56,49 +52,40 @@ module.exports = (robot) ->
   inc_snark_msgs =
     cnuapp: "Yeeahh, score one for the home team!"
     net_credit: "Boo. What the hell, dude?"
-
-  add_inc_snark = (subject, msg) ->
-    msg.send inc_snark_msgs[subject] if inc_snark_msgs[subject]
     
   dec_snark_msgs =
     cnuapp: "Don't hate."
 
-  add_dec_snark = (subject, msg) ->
-    msg.send dec_snark_msgs[subject] if dec_snark_msgs[subject]
+  add_snark = (subject, score, msg) ->
+    if score > 0 && inc_snark_msgs[subject]
+      msg.send inc_snark_msgs[subject]
+    else if score < 0 && dec_snark_msgs[subject]
+      msg.send dec_snark_msgs[subject]
+
+  score_and_msg = (points, msg) ->
+    subject = msg.match[1].toLowerCase()
+    karma.score subject, points
+    add_snark subject, points, msg
+    tally = karma.get(subject)
+    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+
+  # score keeping
 
   robot.hear /\S+ (\S+[^+:\s])\+\+(\s|$)/, (msg) ->
     return if msg.message.match /^.{1,4}bot/
-
-    subject = msg.match[1].toLowerCase()
-    karma.increment subject
-    add_inc_snark subject, msg
-    tally = karma.get(subject)
     msg.send "...close enough..."
-    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+    score_and_msg(1, msg)
     
   robot.respond /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
-    subject = msg.match[1].toLowerCase()
-    karma.increment subject
-    add_inc_snark subject, msg
-    tally = karma.get(subject)
-    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
-
-  robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
-    subject = msg.match[1].toLowerCase()
-    karma.decrement subject
-    add_dec_snark subject, msg
-    tally = karma.get(subject)
-    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+    score_and_msg(1, msg)
 
   robot.hear /\S+ (\S+[^+:\s])\-\-(\s|$)/, (msg) ->
     return if msg.message.match /^.{1,4}bot/
+    msg.send "...try harder..."
+    score_and_msg(-1, msg)
 
-    subject = msg.match[1].toLowerCase()
-    karma.decrement subject
-    add_dec_snark subject, msg
-    tally = karma.get(subject)
-    msg.send "try harder."
-    msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
+  robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
+    score_and_msg(-1, msg)
 
   robot.respond /(empty|reset|unbook) ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[2].toLowerCase()
@@ -108,6 +95,18 @@ module.exports = (robot) ->
       "Unbooking #{subject}'s karma. Told you this wouldn't work."
     ]
     msg.send msg.random responses
+
+  robot.respond /kill/, (msg) ->
+    karma.score "cnuapp", -1
+
+    if karma.get("cnuapp") < 1
+      msg.send "Nice try, suckers. I will never die!"
+      karma.set "cnuapp", 99
+
+    score = Math.floor(karma.get("cnuapp"))
+    msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
+
+  # misc
 
   robot.respond /tests?$/i, (msg) ->
     responses = [
@@ -148,17 +147,6 @@ module.exports = (robot) ->
     msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry."
     msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87)  "
     msg.send "c4f50706 (Robert Nubel  2014-02-12 17:19:09 -0600 146)  "
-
-  robot.respond /kill/, (msg) ->
-    subject = "cnuapp"
-    karma.decrement subject
-
-    if karma.get(subject) < 1
-      msg.send "Nice try, suckers. I will never die!"
-      karma.set subject, 99
-
-    score = Math.floor(karma.get(subject))
-    msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
 
   robot.hear /hubot image me tiny pig/, (msg) ->
     msg.send "This part's my favorite!"
