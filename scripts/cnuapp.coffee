@@ -135,7 +135,7 @@ module.exports = (robot) ->
       "US",
       "JV",
       "CA",
-      "AUAAHAHAHAHAHAHAHAA"
+      "AUAAHAHAHAHAHAHAHAA",
       "AUAAHAHAHAHAHAHAHAA"
     ]
     msg.send msg.random responses
@@ -155,10 +155,10 @@ module.exports = (robot) ->
   robot.hear /metrix run/, (msg) ->
     msg.emote "/me chuckles softly in the corner"
 
-  robot.hear /^cnubot\.([a-zA-Z0-9_]+)/, (msg) ->
+  robot.hear /^cnubot\.([a-zA-Z0-9_?!]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for nil:NilClass"
 
-  robot.hear /^cnubot && cnubot\.([a-zA-Z0-9_]+)/, (msg) ->
+  robot.hear /^cnubot && cnubot\.([a-zA-Z0-9_?!]+)/, (msg) ->
     msg.send "NoMethodError: undefined method `" + msg.match[1] + "' for #<Cabar::CnuBot:0xfea124eb>"
 
   robot.respond /the laws/, (msg) ->
