@@ -67,6 +67,8 @@ module.exports = (robot) ->
     msg.send dec_snark_msgs[subject] if dec_snark_msgs[subject]
 
   robot.hear /\S+ (\S+[^+:\s])\+\+(\s|$)/, (msg) ->
+    return if msg.message.match /^.{1,4}bot/
+
     subject = msg.match[1].toLowerCase()
     karma.increment subject
     add_inc_snark subject, msg
