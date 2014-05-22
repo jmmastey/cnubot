@@ -8,6 +8,7 @@
 #   None
 #
 # Commands:
+#   hubot blame - who's responsible for this travesty
 #   hubot tests - check on test suite status
 #   hubot restart - restart hubot
 #   hubot cluster - check which cluster hubot is on
