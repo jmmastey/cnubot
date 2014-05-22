@@ -12,7 +12,6 @@
 #
 # URLS:
 #   /hubot/version
-#   /hubot/ping
 #   /hubot/time
 #   /hubot/info
 #   /hubot/ip

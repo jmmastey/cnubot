@@ -62,6 +62,9 @@ module.exports = (robot) ->
     subject = msg.match[1].toLowerCase()
     karma.score subject, points
     add_snark subject, points, msg
+    print_karma subject, msg
+
+  print_karma = (subject, msg) ->
     tally = karma.get(subject)
     msg.send "#{subject} has #{tally} cnu_point#{if tally == 1 then '' else 's'}"
 
@@ -80,6 +83,11 @@ module.exports = (robot) ->
 
   robot.respond /(\S+[^-:\s])[: ]*--(\s|$)/, (msg) ->
     score_and_msg(-1, msg)
+
+  robot.hear /^(cnubot |hubot )?(\S+[^-:\s])*—$/, (msg) ->
+    subject = msg.message.user.name.toLowerCase()
+    karma.score subject, -1
+    print_karma subject, msg
 
   robot.respond /(empty|reset|unbook) ?(\S+[^-\s])$/i, (msg) ->
     subject = msg.match[2].toLowerCase()
