@@ -36,6 +36,9 @@ module.exports = (robot) ->
   robot.hear /operat(e|ing) as an owner/i, (msg) ->
     msg.send "Core Value Detected: Closing Credit Gap"
 
+  robot.hear /operat(e|ing) as (joe decosmo|dave fisher)/i, (msg) ->
+    msg.send "Core Owner Detected: Operating as a Value"
+
   robot.hear /^ncbot core value me/, (msg) ->
     msg.send "Oh come on, I was kidding. Did you seriously just try that?"
 
