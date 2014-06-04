@@ -98,7 +98,7 @@ module.exports = (robot) ->
     ]
     msg.send msg.random responses
 
-  robot.respond /kill/, (msg) ->
+  robot.respond /(kill|die)/, (msg) ->
     karma.score "cnuapp", -1
 
     if karma.get("cnuapp") < 1
