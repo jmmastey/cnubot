@@ -57,6 +57,7 @@ module.exports = (robot) ->
     msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87)  "
     msg.send "c4f50706 (Robert Nubel  2014-02-12 17:19:09 -0600 146)  "
     msg.send "394ad1ca (Erhan Edlinger 2014-05-22 11:53:38 -0500 39)"
+    msg.send "e7e46251 (Nathan Handler 2014-06-04 15:19:30 -0500 101)"
 
   robot.hear /hubot image me tiny pig/, (msg) ->
     msg.send "This part's my favorite!"
