@@ -2,7 +2,7 @@
 #   Karmic justice, now with floats!
 #
 # Dependencies:
-#   None
+
 #
 # Configuration:
 #   None
@@ -103,7 +103,7 @@ module.exports = (robot) ->
 
     if karma.get("cnuapp") < 1
       msg.send "Nice try, suckers. I will never die!"
-      karma.set "cnuapp", 99
+      karma.set "cnuapp", 20
 
     score = Math.floor(karma.get("cnuapp"))
     msg.send "#{score} day#{if score is 1 then '' else 's'} until I die."
