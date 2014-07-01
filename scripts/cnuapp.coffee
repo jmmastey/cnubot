@@ -62,7 +62,7 @@ module.exports = (robot) ->
   robot.hear /hubot image me tiny pig/, (msg) ->
     msg.send "This part's my favorite!"
 
-  robot.hear /metrix run/, (msg) ->
+  robot.hear /metrix run/i, (msg) ->
     msg.emote "/me chuckles softly in the corner"
 
   robot.hear /^cnubot\.([a-zA-Z0-9_?!]+)/, (msg) ->
