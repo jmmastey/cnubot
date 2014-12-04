@@ -30,7 +30,6 @@ module.exports = (robot) ->
     channel = channelMap[msg.message.reply_to || msg.message.room || msg.message.channel]
     return unless channel
 
-    msg.send "getting info about #{channel}"
     url = "https://slack.com/api/channels.info?token=#{apiToken()}&channel=#{channel}"
 
     robot.http(url).get() (err, r, body) ->
