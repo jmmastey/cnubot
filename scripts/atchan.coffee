@@ -10,21 +10,36 @@
 # Commands:
 #   None
 module.exports = (robot) ->
-  api_token = ->
+
+  apiToken = ->
     process.env.SLACK_API_TOKEN
 
+  channelMap = {}
+  loadChannelMap = ->
+    url = "https://slack.com/api/channels.list?token=#{apiToken()}&exclude_archived=1"
+    robot.http(url).get() (err, r, body) ->
+      channels = JSON.parse(body)
+      return unless channels["ok"] == true
+
+      for channel in channels["channels"]
+        channelMap[channel["name"]] = channel["id"]
+
+  loadChannelMap()
+
   robot.hear /\@channel|at-channel/, (msg) ->
-    subject = msg.message.user.name.toLowerCase()
-    channel = msg.message.reply_to || msg.message.room || msg.message.channel
-    url = "https://slack.com/api/channels.info?token=#{api_token()}&channel=#{channel}"
+    channel = channelMap[msg.message.reply_to || msg.message.room || msg.message.channel]
+    return unless channel
+
     msg.send "getting info about #{channel}"
+    url = "https://slack.com/api/channels.info?token=#{apiToken()}&channel=#{channel}"
 
     robot.http(url).get() (err, r, body) ->
-      channel_stats = JSON.parse(body)
-      return unless channel_stats["ok"] == true
+      channelStats = JSON.parse(body)
+      return unless channelStats["ok"] == true
 
-      users = channel_stats["channel"]["members"].length
-      salary_per_minute = 100000 / (2000 * 60)  # number of minutes 
-      cost = salary_per_minute * users * 15
+      subject = msg.message.user.name.toLowerCase()
+      users = channelStats["channel"]["members"].length
+      salaryPerMinute = 100000 / (2000 * 60)  # number of minutes 
+      cost = salaryPerMinute * users * 15
 
       msg.send "At-channel to #{users} users x 15 minutes: #{subject} spends ~$#{cost}."
