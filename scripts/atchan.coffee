@@ -26,7 +26,7 @@ module.exports = (robot) ->
 
   loadChannelMap()
 
-  robot.hear /\@channel|at-channel/, (msg) ->
+  robot.hear /\@channel/, (msg) ->
     channel = channelMap[msg.message.reply_to || msg.message.room || msg.message.channel]
     return unless channel
 
@@ -39,6 +39,6 @@ module.exports = (robot) ->
       subject = msg.message.user.name.toLowerCase()
       users = channelStats["channel"]["members"].length
       salaryPerMinute = 100000 / (2000 * 60)  # number of minutes 
-      cost = salaryPerMinute * users * 15
+      cost = salaryPerMinute * users * 10
 
-      msg.send "At-channel to #{users} users x 15 minutes: #{subject} spends ~$#{cost}."
+      msg.send "At-channel to #{users} users x 10 minutes: #{subject} spends ~$#{cost}."
