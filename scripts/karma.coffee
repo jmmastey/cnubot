@@ -48,7 +48,7 @@ module.exports = (robot) ->
   inc_snark_msgs =
     cnuapp: "Yeeahh, score one for the home team!"
     net_credit: "Boo. What the hell, dude?"
-    
+
   dec_snark_msgs =
     cnuapp: "Don't hate."
 
@@ -72,7 +72,7 @@ module.exports = (robot) ->
     return if msg.message.match /^.{1,4}bot/
     msg.send "...close enough..."
     score_and_msg(1, msg)
-    
+
   robot.respond /(\S+[^+:\s])[: ]*\+\+(\s|$)/, (msg) ->
     score_and_msg(1, msg)
 
@@ -119,4 +119,7 @@ module.exports = (robot) ->
     else
     	msg.send ":approved"
 
-
+  robot.respond /:bad-idea-dan:/, (msg) ->
+    subject = "@dkotowski"
+    karma.score subject, -1
+    print_karma subject, msg
