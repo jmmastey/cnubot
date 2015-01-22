@@ -119,7 +119,7 @@ module.exports = (robot) ->
     else
     	msg.send ":approved"
 
-  robot.respond /.*:bad-idea-dan:.*/, (msg) ->
+  robot.hear /.*:bad-idea-dan:.*/, (msg) ->
     subject = "@dkotowski"
     karma.score subject, -1
     print_karma subject, msg
