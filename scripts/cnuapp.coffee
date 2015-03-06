@@ -53,11 +53,11 @@ module.exports = (robot) ->
     msg.send "Could not load db-global."
 
   robot.respond /blame/, (msg) ->
-    msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry."
+    msg.send "41cdde6c (Joseph Mastey     2014-02-11 15:31:14 -0600  86)  -- I'm sorry. I'm so, so sorry. RIP"
     msg.send "90abaf97 (Trey Springer     2014-02-11 17:20:16 -0800  87) // RIP "
     msg.send "c4f50706 (Robert Nubel  2014-02-12 17:19:09 -0600 146)  "
     msg.send "394ad1ca (Erhan Edlinger 2014-05-22 11:53:38 -0500 39)"
-    msg.send "e7e46251 (Nathan Handler 2014-06-04 15:19:30 -0500 101)  # writes broken patches"
+    msg.send "e7e46251 (Nathan Handler 2014-06-04 15:19:30 -0500 101)  # writes broken patches. RIP"
     msg.send "92be16c7 (Dan Kotowski  2015-01-21 17:38:14 -0500 131)  /* Culturing the uncultured. */"
 
   robot.hear /hubot image me tiny pig/, (msg) ->
